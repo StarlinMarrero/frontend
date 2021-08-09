@@ -1,22 +1,15 @@
-import axios from 'axios'
 import React, {useEffect, useState} from 'react'
-
-interface video {
-    createdAt: string,
-    description: string,
-    title: string,
-    updatedAt: string,
-    url: string,
-    _id: string,
-}
+import { video } from './Video'
+import * as videoServices from './VideoServices'
+import {VideoItems} from './VideoItems'
 
 const VideosList = () => {
     const [videos, setvideos]  = useState<video[]>([])
 
     const loadVideos = async () => {
-      const res = await axios.get("http://localhost:4000/videos");
+      const res = await videoServices.getVideos();
       setvideos(res.data);
-      console.log(res);
+      
     }
 
     useEffect(() => {
@@ -27,9 +20,7 @@ const VideosList = () => {
     return (
         <div>
             {videos.map((video) => {
-                return <div>
-                        <h3>{video.title}</h3>
-                    </div>
+                return <VideoItems video={video} />
             })}
         </div>
     )
