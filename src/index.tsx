@@ -4,7 +4,7 @@ import { Navbar } from './components/Navbar/Navbar';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import VideosList from './components/Videos/VideoList';
-import videoForm from './components/Videos/videoForm';
+import VideoForm from './components/Videos/VideoForm';
 import 'bootswatch/dist/materia/bootstrap.min.css';
 
 import './index.css';
@@ -13,11 +13,13 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
           <Navbar/>
-
+        <div className="container-fluid p-4">
         <Switch>
             <Route exact path="/" component={VideosList} />
-            <Route path="/new-video" component={videoForm}/>
+            <Route path="/new-video" component={VideoForm}/>
         </Switch>
+        </div>
+     
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
