@@ -1,0 +1,6 @@
+.video-card:hover{
+    -webkit-box-shadow: 0px 0px 5px 6px rgba(199,199,199,0.4);
+    -moz-box-shadow: 0px 0px 5px 6px rgba(199,199,199,0.4);
+    box-shadow: 0px 0px 5px 6px rgba(199,199,199,0.4);
+    cursor: pointer;
+}

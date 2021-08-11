@@ -1,8 +1,8 @@
 export interface video {
-    createdAt?: string,
+    createdAt?: string | Date,
     description: string,
     title: string,
-    updatedAt?: string,
+    updatedAt?: string | Date,
     url: string,
     _id?: string,
 }

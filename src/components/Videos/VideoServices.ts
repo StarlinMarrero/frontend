@@ -2,7 +2,7 @@ import axios from 'axios'
 import { video } from './Video';
 
 export const getVideos = async () =>{
-    return await axios.get("http://localhost:4000/videos");
+    return await axios.get<video[]>("http://localhost:4000/videos");
     
 }
 

@@ -3,12 +3,25 @@ import { video } from './Video'
 import * as videoServices from './VideoServices'
 import {VideoItems} from './VideoItems'
 
+
 const VideosList = () => {
     const [videos, setvideos]  = useState<video[]>([])
 
     const loadVideos = async () => {
       const res = await videoServices.getVideos();
-      setvideos(res.data);
+
+        const formatedVideo = res.data.map(video => {
+            return {
+                ...video,
+                createdAt: video.createdAt ? new Date(video.createdAt): new Date(),
+                updatedAt: video.updatedAt ? new Date(video.updatedAt): new Date(),
+                
+                
+            }
+        }).sort((a, b) => b.createdAt.getTime() - a.updatedAt.getTime());
+
+
+      setvideos(formatedVideo);
       
     }
 
@@ -18,9 +31,9 @@ const VideosList = () => {
 
     },[])
     return (
-        <div>
+        <div className="row">
             {videos.map((video) => {
-                return <VideoItems video={video} />
+                return <VideoItems video={video} key={video._id} />
             })}
         </div>
     )

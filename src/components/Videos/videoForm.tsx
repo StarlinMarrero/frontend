@@ -2,15 +2,28 @@ import React, { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
 import { video } from "./Video";
 import * as videoServices from './VideoServices'
+import {toast, Toast} from 'react-toastify'
+import {useHistory, useParams} from 'react-router-dom'
 
 type inputChange = ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
 
+interface Params {
+    id: string
+}
+
+
 const VideoForm = () => {
-  const [video, setVideo] = useState<video>({
+
+  const History = useHistory();
+  const Params = useParams<Params>();
+
+  const initialState = {
     title: "",
     description: "",
     url: "",
-  });
+  };
+
+  const [video, setVideo] = useState<video>(initialState);
 
   const HandletInputChange = (e: inputChange) => {
     setVideo({ ...video, [e.target.name]: e.target.value });
@@ -20,6 +33,10 @@ const VideoForm = () => {
   const HandletSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
    const res = await videoServices.crateVideo(video);
+
+    toast.success('Nuevo Video Agregado')
+    History.push('/');
+    setVideo(initialState);
   }
 
   return (
@@ -27,7 +44,12 @@ const VideoForm = () => {
       <div className="col-md-4 offset-md-4">
         <div className="card">
           <div className="card-body">
-            <h3>Nuevo Video</h3>
+            {
+              Params.id ?
+              <h3>Actualizar Video</h3>
+              :
+              <h3>Nuevo Video</h3>
+            }
             <form onSubmit={HandletSubmit}>
               <div className="form-group">
                 <input
@@ -55,8 +77,15 @@ const VideoForm = () => {
                   onChange={HandletInputChange}
                 ></textarea>
               </div>
+                {
+                  Params.id ?
+                  <button className="btn btn-warning mt-3">Actualizar</button>
+                  :
+                  <button className="btn btn-danger mt-3">Guardar</button>
 
-              <button className="btn btn-danger mt-3">Guardar</button>
+
+                }
+             
             </form>
           </div>
         </div>

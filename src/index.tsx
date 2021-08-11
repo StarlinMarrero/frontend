@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import VideosList from './components/Videos/VideoList';
 import VideoForm from './components/Videos/VideoForm';
 import 'bootswatch/dist/materia/bootstrap.min.css';
+import {ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 import './index.css';
 
@@ -17,9 +19,10 @@ ReactDOM.render(
         <Switch>
             <Route exact path="/" component={VideosList} />
             <Route path="/new-video" component={VideoForm}/>
+            <Route path="/update/:id" component={VideoForm}/>
         </Switch>
         </div>
-     
+     <ToastContainer />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
